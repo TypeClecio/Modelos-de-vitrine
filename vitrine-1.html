@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANTHOS — Ateliê</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #14130F;
+      --paper: #F1ECE1;
+      --paper-dim: #E6DFCF;
+      --stone: #a89f8d;
+      --wine: #6E1F2A;
+      --wine-light: #8a2c3a;
+      --brass: #A9895C;
+      --line: rgba(20, 19, 15, 0.14);
+      --line-light: rgba(241, 236, 225, 0.22);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    button {
+      font-family: inherit;
+      border: none;
+      background: none;
+      cursor: pointer;
+    }
+
+    .eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--wine);
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      padding: 22px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    header.scrolled {
+      background: rgba(241, 236, 225, 0.92);
+      backdrop-filter: blur(10px);
+      padding: 14px 32px;
+      border-color: var(--line);
+    }
+
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 22px;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+    }
+
+    header.scrolled .logo,
+    .nav-links,
+    header.scrolled .nav-links a {
+      color: var(--ink);
+    }
+
+    header:not(.scrolled) .logo,
+    header:not(.scrolled) .nav-links a,
+    header:not(.scrolled) .nav-toggle span {
+      color: var(--paper);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background: currentColor;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 13px 26px;
+      border: 1px solid currentColor;
+      transition: all 0.35s ease;
+      white-space: nowrap;
+    }
+
+    .btn-wine {
+      background: var(--wine);
+      color: var(--paper) !important;
+      border-color: var(--wine);
+    }
+
+    .btn-wine:hover {
+      background: var(--wine-light);
+      border-color: var(--wine-light);
+    }
+
+    .btn-outline-dark {
+      color: var(--ink);
+    }
+
+    .btn-outline-dark:hover {
+      background: var(--ink);
+      color: var(--paper) !important;
+    }
+
+    .btn-outline-light {
+      color: var(--paper);
+    }
+
+    .btn-outline-light:hover {
+      background: var(--paper);
+      color: var(--ink) !important;
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 210;
+    }
+
+    .nav-toggle span {
+      width: 24px;
+      height: 1.5px;
+      background: currentColor;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 640px;
+      display: flex;
+      align-items: flex-end;
+      color: var(--paper);
+      overflow: hidden;
+    }
+
+    .hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.08);
+      animation: heroZoom 12s ease-out forwards;
+    }
+
+    @keyframes heroZoom {
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(20, 19, 15, 0.15) 0%, rgba(20, 19, 15, 0.05) 40%, rgba(20, 19, 15, 0.75) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding-bottom: 88px;
+      max-width: 760px;
+    }
+
+    .hero .eyebrow {
+      color: var(--paper);
+      opacity: 0.85;
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 6.5vw, 84px);
+      font-style: italic;
+      font-weight: 400;
+      margin-bottom: 22px;
+    }
+
+    .hero p {
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 440px;
+      color: var(--paper-dim);
+      margin-bottom: 34px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      right: 32px;
+      bottom: 36px;
+      z-index: 2;
+      writing-mode: vertical-rl;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--paper);
+      opacity: 0.7;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .scroll-cue::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: var(--paper);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollLine {
+
+      0%,
+      100% {
+        height: 40px;
+        opacity: 0.7;
+      }
+
+      50% {
+        height: 20px;
+        opacity: 0.3;
+      }
+    }
+
+    /* ---------- GENERIC SECTION ---------- */
+    section {
+      padding: 120px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+    }
+
+    .section-head .eyebrow {
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .section-head h2 {
+      font-size: clamp(30px, 4vw, 48px);
+    }
+
+    .section-head p {
+      max-width: 340px;
+      color: #4a473f;
+      line-height: 1.6;
+      font-size: 14.5px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------- COLECOES ---------- */
+    .collections-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .collection-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .collection-card:first-child {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .collection-card img {
+      transition: transform 0.7s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .collection-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .collection-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(20, 19, 15, 0.65) 100%);
+    }
+
+    .collection-label {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      z-index: 2;
+      color: var(--paper);
+    }
+
+    .collection-label .eyebrow {
+      color: var(--brass);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .collection-label h3 {
+      font-size: 22px;
+      font-style: italic;
+    }
+
+    /* ---------- PRODUTOS ---------- */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px 24px;
+    }
+
+    .product-card {
+      cursor: pointer;
+    }
+
+    .product-frame {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      background: var(--paper-dim);
+      margin-bottom: 16px;
+    }
+
+    .product-frame img {
+      transition: transform 0.6s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .product-card:hover .product-frame img {
+      transform: scale(1.05);
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 14px;
+      left: -6px;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      padding: 5px 12px 5px 16px;
+      box-shadow: 2px 2px 0 var(--brass);
+    }
+
+    .product-info h3 {
+      font-size: 19px;
+      font-weight: 400;
+      margin-bottom: 6px;
+    }
+
+    .product-info p {
+      font-size: 13.5px;
+      color: #6b6858;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .product-info .btn {
+      padding: 10px 18px;
+      font-size: 11.5px;
+    }
+
+    /* ---------- MODAL ---------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 19, 15, 0.82);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal {
+      background: var(--paper);
+      max-width: 920px;
+      width: 100%;
+      max-height: 88vh;
+      overflow: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      transform: translateY(16px);
+      transition: transform 0.35s ease;
+    }
+
+    .modal-overlay.open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 5;
+      width: 36px;
+      height: 36px;
+      background: var(--paper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      border: 1px solid var(--line);
+    }
+
+    .modal-gallery {
+      position: relative;
+      background: var(--paper-dim);
+    }
+
+    .modal-gallery-main {
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+
+    .modal-thumbs {
+      display: flex;
+      gap: 8px;
+      padding: 10px;
+    }
+
+    .modal-thumbs img {
+      aspect-ratio: 1/1;
+      cursor: pointer;
+      opacity: 0.55;
+      transition: opacity 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .modal-thumbs img.active {
+      opacity: 1;
+      border-color: var(--wine);
+    }
+
+    .modal-body {
+      padding: 44px 36px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-body .eyebrow {
+      margin-bottom: 14px;
+    }
+
+    .modal-body h3 {
+      font-size: 30px;
+      font-style: italic;
+      margin-bottom: 14px;
+    }
+
+    .modal-body .desc {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #4a473f;
+      margin-bottom: 24px;
+    }
+
+    .option-group {
+      margin-bottom: 20px;
+    }
+
+    .option-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8a8676;
+      margin-bottom: 10px;
+    }
+
+    .chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      padding: 7px 14px;
+      border: 1px solid var(--line);
+      font-size: 12.5px;
+    }
+
+    .modal-body .btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: auto;
+      padding-top: 16px;
+      padding-bottom: 16px;
+    }
+
+    .modal-body .btn:first-of-type {
+      margin-top: 24px;
+    }
+
+    .modal-note {
+      font-size: 12px;
+      color: #8a8676;
+      margin-top: 14px;
+      text-align: center;
+    }
+
+    /* ---------- INSTAGRAM ---------- */
+    .insta-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .insta-header .eyebrow {
+      justify-content: center;
+      display: flex;
+      margin-bottom: 14px;
+    }
+
+    .insta-header h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin-bottom: 18px;
+    }
+
+    .insta-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+    }
+
+    .insta-tile {
+      aspect-ratio: 1/1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .insta-tile::after {
+      content: '@antho.usmoda';
+      position: absolute;
+      inset: 0;
+      background: rgba(110, 31, 42, 0.85);
+      color: var(--paper);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .insta-tile:hover::after {
+      opacity: 1;
+    }
+
+    .insta-cta {
+      text-align: center;
+      margin-top: 44px;
+    }
+
+    /* ---------- SOBRE ---------- */
+    .about {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .about-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .about-photos img:first-child {
+      aspect-ratio: 3/4;
+      grid-row: span 2;
+    }
+
+    .about-photos img:last-child {
+      aspect-ratio: 3/2.2;
+      align-self: end;
+    }
+
+    .about-text .eyebrow {
+      color: var(--brass);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .about-text h2 {
+      font-size: clamp(28px, 3.6vw, 42px);
+      margin-bottom: 22px;
+      font-style: italic;
+    }
+
+    .about-text p {
+      color: #c9c4b4;
+      line-height: 1.75;
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+
+    .about-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line-light);
+      margin-bottom: 28px;
+    }
+
+    .about-meta .option-label {
+      color: #8a8676;
+    }
+
+    .about-meta div p {
+      color: var(--paper);
+      font-size: 14px;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ---------- CTA FINAL ---------- */
+    .cta-final {
+      text-align: center;
+      background: var(--paper-dim);
+    }
+
+    .cta-final .eyebrow {
+      justify-content: center;
+      display: flex;
+      margin-bottom: 18px;
+    }
+
+    .cta-final h2 {
+      font-size: clamp(32px, 5vw, 58px);
+      font-style: italic;
+      margin-bottom: 16px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-final p {
+      font-size: 15.5px;
+      color: #5c5847;
+      margin-bottom: 36px;
+    }
+
+    .cta-final .btn {
+      padding: 18px 42px;
+      font-size: 14px;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 64px 0 28px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 32px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--line-light);
+      margin-bottom: 24px;
+    }
+
+    .footer-logo {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 24px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .footer-top p {
+      color: #a29e8e;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+
+    .footer-col .option-label {
+      color: #8a8676;
+      margin-bottom: 14px;
+    }
+
+    .footer-col a,
+    .footer-col p {
+      display: block;
+      font-size: 13.5px;
+      color: #c9c4b4;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .footer-col a:hover {
+      color: var(--paper);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #7e7a6a;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* ---------- WHATSAPP FLOAT ---------- */
+    .wa-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 150;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--wine);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(20, 19, 15, 0.35);
+      transition: transform 0.3s ease;
+    }
+
+    .wa-float:hover {
+      transform: scale(1.08);
+    }
+
+    .wa-float svg {
+      width: 26px;
+      height: 26px;
+      fill: var(--paper);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width:900px) {
+
+      .nav-links,
+      header .btn-outline-light,
+      header .btn-outline-dark {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .collections-grid,
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .collection-card:first-child {
+        grid-column: span 2;
+        grid-row: span 1;
+        aspect-ratio: 16/10;
+      }
+
+      .modal {
+        grid-template-columns: 1fr;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .insta-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width:560px) {
+      .container {
+        padding: 0 20px;
+      }
+
+      section {
+        padding: 80px 0;
+      }
+
+      .collections-grid,
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .collection-card:first-child {
+        grid-column: span 1;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .about-photos {
+        grid-template-columns: 1fr;
+      }
+
+      .about-photos img:first-child {
+        grid-row: span 1;
+      }
+
+      .insta-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Mobile nav drawer */
+    .mobile-nav {
+      position: fixed;
+      inset: 0;
+      background: var(--ink);
+      color: var(--paper);
+      z-index: 190;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+      transform: translateX(100%);
+      transition: transform 0.4s ease;
+    }
+
+    .mobile-nav.open {
+      transform: translateX(0);
+    }
+
+    .mobile-nav a {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 30px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line-light);
+    }
+
+    .mobile-nav .btn {
+      margin-top: 24px;
+      width: fit-content;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header id="siteHeader">
+    <a href="#hero" class="logo">ANTHOS</a>
+    <ul class="nav-links">
+      <li><a href="#hero">Início</a></li>
+      <li><a href="#colecoes">Coleções</a></li>
+      <li><a href="#produtos">Produtos</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#instagram">Instagram</a></li>
+    </ul>
+    <a class="btn btn-outline-light" id="headerCta"
+      href="https://wa.me/5511999999999?text=Olá! Vim pelo site e gostaria de saber mais sobre a Anthos."
+      target="_blank" rel="noopener">Falar no WhatsApp</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#hero">Início</a>
+    <a href="#colecoes">Coleções</a>
+    <a href="#produtos">Produtos</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#instagram">Instagram</a>
+    <a class="btn btn-wine"
+      href="https://wa.me/5511999999999?text=Olá! Vim pelo site e gostaria de saber mais sobre a Anthos."
+      target="_blank" rel="noopener">Falar no WhatsApp</a>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="hero" style="padding:0;">
+    <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?q=80&w=1600&auto=format&fit=crop"
+      alt="Editorial de moda Anthos">
+    <div class="container hero-content">
+      <span class="eyebrow">Ateliê de moda autoral</span>
+      <h1>Roupas que contam<br>a sua história.</h1>
+      <p>Peças pensadas para durar — tecidos selecionados, corte autoral e produção em pequenos lotes. Uma loja física
+        em São Paulo, agora também no seu feed.</p>
+      <div class="hero-ctas">
+        <a href="#produtos" class="btn btn-outline-light">Conheça nossa coleção</a>
+        <a href="https://wa.me/5511999999999?text=Olá! Vim pelo site e gostaria de conhecer as peças da Anthos."
+          target="_blank" rel="noopener" class="btn btn-wine">Falar no WhatsApp</a>
+      </div>
+    </div>
+    <div class="scroll-cue">role para explorar</div>
+  </section>
+
+  <!-- ================= COLEÇÕES ================= -->
+  <section id="colecoes">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">Catálogo 2026</span>
+          <h2>Coleções</h2>
+        </div>
+        <p>Cada coleção nasce de uma referência distinta — do alfaiate ao ateliê, do cotidiano ao evento.</p>
+      </div>
+      <div class="collections-grid">
+        <div class="collection-card reveal">
+          <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=1200&auto=format&fit=crop"
+            alt="Coleção Novidades">
+          <div class="collection-label"><span class="eyebrow">Recém-chegadas</span>
+            <h3>Novidades</h3>
+          </div>
+        </div>
+        <div class="collection-card reveal">
+          <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=1200&auto=format&fit=crop"
+            alt="Coleção Camisas">
+          <div class="collection-label"><span class="eyebrow">Alfaiataria</span>
+            <h3>Camisas</h3>
+          </div>
+        </div>
+        <div class="collection-card reveal">
+          <img src="https://images.unsplash.com/photo-1517438476312-10d79c077509?q=80&w=1200&auto=format&fit=crop"
+            alt="Coleção Calças">
+          <div class="collection-label"><span class="eyebrow">Corte reto</span>
+            <h3>Calças</h3>
+          </div>
+        </div>
+        <div class="collection-card reveal">
+          <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=1200&auto=format&fit=crop"
+            alt="Coleção Acessórios">
+          <div class="collection-label"><span class="eyebrow">Detalhes</span>
+            <h3>Acessórios</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PRODUTOS ================= -->
+  <section id="produtos" style="background:var(--paper-dim);">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">Seleção da semana</span>
+          <h2>Peças em destaque</h2>
+        </div>
+        <p>Toque em uma peça para ver mais fotos, cores e tamanhos disponíveis.</p>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+    </div>
+  </section>
+
+  <!-- ================= MODAL PRODUTO ================= -->
+  <div class="modal-overlay" id="productModal">
+    <div class="modal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-gallery">
+        <div class="modal-gallery-main"><img id="modalMainImg" src="" alt=""></div>
+        <div class="modal-thumbs" id="modalThumbs"></div>
+      </div>
+      <div class="modal-body">
+        <span class="eyebrow" id="modalTag"></span>
+        <h3 id="modalName"></h3>
+        <p class="desc" id="modalDesc"></p>
+        <div class="option-group">
+          <div class="option-label">Cores disponíveis</div>
+          <div class="chips" id="modalColors"></div>
+        </div>
+        <div class="option-group">
+          <div class="option-label">Tamanhos</div>
+          <div class="chips" id="modalSizes"></div>
+        </div>
+        <a href="#" id="modalInterest" class="btn btn-wine" target="_blank" rel="noopener">Tenho interesse nesta
+          peça</a>
+        <a href="#" id="modalConsult" class="btn btn-outline-dark" target="_blank" rel="noopener">Consultar
+          disponibilidade</a>
+        <p class="modal-note">Sem preço on-line — fale com a gente para valores e disponibilidade.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= INSTAGRAM ================= -->
+  <section id="instagram">
+    <div class="container">
+      <div class="insta-header reveal">
+        <span class="eyebrow">@antho.usmoda</span>
+        <h2>No feed, todo santo dia</h2>
+      </div>
+      <div class="insta-grid">
+        <div class="insta-tile"><img
+            src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=600&auto=format&fit=crop"
+            alt="Instagram Anthos 1"></div>
+        <div class="insta-tile"><img
+            src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=600&auto=format&fit=crop"
+            alt="Instagram Anthos 2"></div>
+        <div class="insta-tile"><img
+            src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=600&auto=format&fit=crop"
+            alt="Instagram Anthos 3"></div>
+        <div class="insta-tile"><img
+            src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=600&auto=format&fit=crop"
+            alt="Instagram Anthos 4"></div>
+        <div class="insta-tile"><img
+            src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=600&auto=format&fit=crop"
+            alt="Instagram Anthos 5"></div>
+      </div>
+      <div class="insta-cta reveal">
+        <a href="https://instagram.com/antho.usmoda" target="_blank" rel="noopener"
+          class="btn btn-outline-dark">Siga-nos no Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SOBRE ================= -->
+  <section id="sobre" class="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-photos reveal">
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=900&auto=format&fit=crop"
+            alt="Fachada da loja Anthos">
+          <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?q=80&w=900&auto=format&fit=crop"
+            alt="Interior da loja Anthos">
+        </div>
+        <div class="about-text reveal">
+          <span class="eyebrow">Desde 2016 — São Paulo</span>
+          <h2>Uma loja, um ponto de vista.</h2>
+          <p>A Anthos nasceu de uma pergunta simples: por que roupa boa precisa ser difícil de encontrar? Trabalhamos
+            direto com pequenos ateliês e tecelagens nacionais, em produção limitada, para vestir gente que valoriza o
+            que usa — não o que está na moda por seis meses.</p>
+          <div class="about-meta">
+            <div>
+              <div class="option-label">Endereço</div>
+              <p>Rua Harmonia, 512 — Vila Madalena, São Paulo</p>
+            </div>
+            <div>
+              <div class="option-label">Horário</div>
+              <p>Ter–Sáb, 10h às 19h<br>Dom e Seg, fechado</p>
+            </div>
+          </div>
+          <a href="https://maps.google.com/?q=Rua+Harmonia+512+Vila+Madalena+São+Paulo" target="_blank" rel="noopener"
+            class="btn btn-outline-light">Ver localização no mapa</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA FINAL ================= -->
+  <section class="cta-final">
+    <div class="container reveal">
+      <span class="eyebrow">Gostou de alguma peça?</span>
+      <h2>Fale com a gente pelo WhatsApp e consulte disponibilidade, cores e tamanhos.</h2>
+      <p>Respondemos rápido, sem robô — direto com o time da loja.</p>
+      <a href="https://wa.me/5511999999999?text=Olá! Vim pelo site e quero saber mais sobre uma peça." target="_blank"
+        rel="noopener" class="btn btn-wine">Falar no WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <span class="footer-logo">ANTHOS</span>
+          <p>Ateliê de moda autoral em São Paulo. Peças em pequenos lotes, feitas para durar.</p>
+        </div>
+        <div class="footer-col">
+          <div class="option-label">Navegação</div>
+          <a href="#colecoes">Coleções</a>
+          <a href="#produtos">Produtos</a>
+          <a href="#sobre">Sobre</a>
+        </div>
+        <div class="footer-col">
+          <div class="option-label">Contato</div>
+          <a href="https://wa.me/5511999999999" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://instagram.com/antho.usmoda" target="_blank" rel="noopener">Instagram</a>
+        </div>
+        <div class="footer-col">
+          <div class="option-label">Loja física</div>
+          <p>Rua Harmonia, 512<br>Vila Madalena, São Paulo</p>
+          <p>Ter–Sáb, 10h às 19h</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Anthos Ateliê. Todos os direitos reservados.</span>
+        <span>Feito com fio, tesoura e paciência.</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/5511999999999?text=Olá! Vim pelo site da Anthos." target="_blank"
+    rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24">
+      <path
+        d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.6 0-3.1-.43-4.4-1.17l-.31-.18-3 .79.8-2.92-.2-.3A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.8c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.57.2-1.05.14-1.15-.06-.1-.22-.16-.46-.28z" />
+    </svg>
+  </a>
+
+  <script>
+    // Header scroll state
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Mobile nav
+    const navToggle = document.getElementById('navToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    navToggle.addEventListener('click', () => mobileNav.classList.toggle('open'));
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileNav.classList.remove('open')));
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+
+    // ---------------- PRODUCTS DATA ----------------
+    const WA_NUMBER = "5511999999999"; // TODO: trocar pelo número real da loja
+
+    const products = [
+      {
+        tag: "N.01",
+        name: "Camisa Alfaiataria Linho",
+        desc: "Linho puro, corte reto, botões de madrepérola. Peça-chave do guarda-roupa de trabalho.",
+        colors: ["Areia", "Branco", "Verde-oliva"],
+        sizes: ["P", "M", "G", "GG"],
+        images: [
+          "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=1000&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=1000&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1000&auto=format&fit=crop"
+        ]
+      },
+      {
+        tag: "N.02",
+        name: "Calça Wide Leg Alfaiataria",
+        desc: "Modelagem ampla, cintura alta e caimento fluido. Vestível do escritório ao fim de semana.",
+        colors: ["Preto", "Caramelo"],
+        sizes: ["36", "38", "40", "42"],
+        images: [
+          "https://images.unsplash.com/photo-1517438476312-10d79c077509?q=80&w=1000&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1602293589930-45821b90d0be?q=80&w=1000&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1000&auto=format&fit=crop"
+        ]
+      },
+      {
+        tag: "N.03",
+        name: "Trench Coat Autoral",
+        desc: "Sobretudo em algodão encerado, forro em viscose e cinto removível.",
+        colors: ["Bege", "Grafite"],
+        sizes: ["P", "M", "G"],
+        images: [
+          "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=1000&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1544022613-e87ca75a784a?q=80&w=1000&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?q=80&w=1000&auto=format&fit=crop"
+        ]
+      },
+      {
+        tag: "N.04",
+        name: "Vestido Midi Alfaiataria",
+        desc: "Modelagem justa ao corpo com fenda lateral. Tecido com leve elasticidade.",
+        colors: ["Vinho", "Preto"],
+        sizes: ["P", "M", "G"],
+        images: [
+          "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=1000&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1000&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1550614000-4895a10e1bfd?q=80&w=1000&auto=format&fit=crop"
+        ]
+      },
+      {
+        tag: "N.05",
+        name: "Cinto Couro Legítimo",
+        desc: "Couro curtido naturalmente, fivela em metal escovado. Acabamento artesanal.",
+        colors: ["Marrom", "Preto"],
+        sizes: ["Único (ajustável)"],
+        images: [
+          "https://images.unsplash.com/photo-1624222247344-550fb60583dc?q=80&w=1000&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=1000&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1591561954557-26941169b49e?q=80&w=1000&auto=format&fit=crop"
+        ]
+      },
+      {
+        tag: "N.06",
+        name: "Blazer Estruturado",
+        desc: "Ombro levemente marcado, botão duplo e forro interno em cetim.",
+        colors: ["Preto", "Xadrez Príncipe de Gales"],
+        sizes: ["P", "M", "G", "GG"],
+        images: [
+          "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?q=80&w=1000&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?q=80&w=1000&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1544957992-20514f595d6f?q=80&w=1000&auto=format&fit=crop"
+        ]
+      }
+    ];
+
+    const grid = document.getElementById('productsGrid');
+    products.forEach((p, i) => {
+      const card = document.createElement('div');
+      card.className = 'product-card reveal';
+      card.innerHTML = `
+      <div class="product-frame">
+        <span class="product-tag">${p.tag}</span>
+        <img src="${p.images[0]}" alt="${p.name}">
+      </div>
+      <div class="product-info">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <button class="btn btn-outline-dark" data-open="${i}">Ver detalhes</button>
+      </div>
+    `;
+      grid.appendChild(card);
+      io.observe(card);
+    });
+
+    // ---------------- MODAL LOGIC ----------------
+    const modal = document.getElementById('productModal');
+    const modalMainImg = document.getElementById('modalMainImg');
+    const modalThumbs = document.getElementById('modalThumbs');
+    const modalTag = document.getElementById('modalTag');
+    const modalName = document.getElementById('modalName');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalColors = document.getElementById('modalColors');
+    const modalSizes = document.getElementById('modalSizes');
+    const modalInterest = document.getElementById('modalInterest');
+    const modalConsult = document.getElementById('modalConsult');
+
+    function openModal(index) {
+      const p = products[index];
+      modalTag.textContent = p.tag;
+      modalName.textContent = p.name;
+      modalDesc.textContent = p.desc;
+      modalMainImg.src = p.images[0];
+      modalMainImg.alt = p.name;
+
+      modalThumbs.innerHTML = '';
+      p.images.forEach((src, idx) => {
+        const t = document.createElement('img');
+        t.src = src;
+        t.className = idx === 0 ? 'active' : '';
+        t.addEventListener('click', () => {
+          modalMainImg.src = src;
+          modalThumbs.querySelectorAll('img').forEach(x => x.classList.remove('active'));
+          t.classList.add('active');
+        });
+        modalThumbs.appendChild(t);
+      });
+
+      modalColors.innerHTML = p.colors.map(c => `<span class="chip">${c}</span>`).join('');
+      modalSizes.innerHTML = p.sizes.map(s => `<span class="chip">${s}</span>`).join('');
+
+      const msg = encodeURIComponent(`Olá! Tenho interesse na peça "${p.name}" (${p.tag}) que vi no site da Anthos.`);
+      modalInterest.href = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+      modalConsult.href = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    grid.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-open]');
+      if (btn) openModal(Number(btn.dataset.open));
+      const frame = e.target.closest('.product-card');
+      if (frame && !btn) openModal(Array.from(grid.children).indexOf(frame));
+    });
+
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+  </script>
+</body>
+
+</html>

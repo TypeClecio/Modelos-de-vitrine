@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALMA — Moda Contemporânea</title>
+  <meta name="description"
+    content="ALMA — uma seleção autoral de moda contemporânea. Conheça a coleção e fale conosco pelo WhatsApp.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #17140F;
+      --ink-soft: #4A453C;
+      --paper: #F7F3EA;
+      --paper-alt: #EEE6D6;
+      --paper-deep: #E4D9C4;
+      --accent: #123F30;
+      --accent-bright: #1C6B4E;
+      --gold: #A9822F;
+      --line: rgba(23, 20, 15, 0.14);
+      --line-soft: rgba(23, 20, 15, 0.08);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 10px;
+      --shadow: 0 20px 60px -25px rgba(23, 20, 15, 0.35);
+      --ease: cubic-bezier(.16, .8, .24, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--paper);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    .wrap {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    @media (max-width:720px) {
+      .wrap {
+        padding: 0 20px;
+      }
+    }
+
+    .eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 11.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 22px;
+      height: 1px;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 30px;
+      border-radius: 100px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14.5px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      transition: transform .45s var(--ease), background .3s ease, color .3s ease, box-shadow .3s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--paper);
+      box-shadow: 0 14px 30px -12px rgba(18, 63, 48, 0.55);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-bright);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--ink);
+      transform: translateY(-2px);
+    }
+
+    .btn-light {
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    .btn-light:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      padding: 22px 0;
+      transition: background .5s var(--ease), padding .4s var(--ease), box-shadow .4s ease, border-color .4s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    header.scrolled {
+      background: rgba(247, 243, 234, 0.86);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      padding: 14px 0;
+      border-color: var(--line-soft);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .navlinks {
+      display: flex;
+      align-items: center;
+      gap: 38px;
+    }
+
+    .navlinks a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      position: relative;
+      padding: 4px 0;
+    }
+
+    .navlinks a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: 0;
+      height: 1px;
+      background: var(--ink);
+      transition: right .35s var(--ease);
+    }
+
+    .navlinks a:hover::after {
+      right: 0;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav-cta svg {
+      fill: #fff;
+    }
+
+    .burger {
+      display: none;
+      width: 26px;
+      height: 20px;
+      position: relative;
+      z-index: 210;
+    }
+
+    .burger span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1.5px;
+      background: var(--ink);
+      transition: transform .3s ease, opacity .3s ease;
+    }
+
+    .burger span:nth-child(1) {
+      top: 0;
+    }
+
+    .burger span:nth-child(2) {
+      top: 9px;
+    }
+
+    .burger span:nth-child(3) {
+      top: 18px;
+    }
+
+    .burger.open span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+
+    .burger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .burger.open span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    @media (max-width:900px) {
+      .navlinks {
+        position: fixed;
+        inset: 0;
+        top: 0;
+        background: var(--paper);
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 26px;
+        padding: 0 32px;
+        transform: translateX(100%);
+        transition: transform .5s var(--ease);
+      }
+
+      .navlinks.open {
+        transform: translateX(0);
+      }
+
+      .navlinks a {
+        font-family: 'Fraunces', serif;
+        font-size: 32px;
+        font-weight: 500;
+      }
+
+      .nav-cta .btn-primary {
+        display: none;
+      }
+
+      .burger {
+        display: block;
+      }
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding-top: 120px;
+      padding-bottom: 0;
+    }
+
+    .hero-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      align-items: flex-end;
+      gap: 40px;
+    }
+
+    .hero-copy {
+      padding-bottom: 80px;
+    }
+
+    .hero-copy .eyebrow {
+      margin-bottom: 26px;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(40px, 5.4vw, 74px);
+      line-height: 1.02;
+      margin-bottom: 26px;
+    }
+
+    .hero-copy p {
+      font-size: 17px;
+      color: var(--ink-soft);
+      max-width: 420px;
+      margin-bottom: 38px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .hero-media {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 78vh;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.06);
+      transition: transform 1.6s var(--ease);
+    }
+
+    .hero.loaded .hero-media img {
+      transform: scale(1);
+    }
+
+    .hero-media .tag {
+      position: absolute;
+      left: 22px;
+      bottom: 22px;
+      background: rgba(247, 243, 234, 0.92);
+      backdrop-filter: blur(8px);
+      border-radius: 100px;
+      padding: 10px 18px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width:960px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy {
+        padding-bottom: 34px;
+        order: 2;
+      }
+
+      .hero-media {
+        order: 1;
+        height: 56vh;
+      }
+
+      .hero {
+        padding-top: 110px;
+      }
+
+      .hero-copy p {
+        max-width: none;
+      }
+    }
+
+    /* ---------- MARQUEE ---------- */
+    .marquee {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      padding: 22px 0;
+      background: var(--paper);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 60px;
+      white-space: nowrap;
+      animation: scroll-left 32s linear infinite;
+      width: max-content;
+    }
+
+    .marquee-track span {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 22px;
+      color: var(--ink-soft);
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .marquee-track span::after {
+      content: '—';
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    @keyframes scroll-left {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* ---------- SECTION HEADERS ---------- */
+    section {
+      padding: 120px 0;
+    }
+
+    @media (max-width:720px) {
+      section {
+        padding: 80px 0;
+      }
+    }
+
+    .sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 30px;
+      margin-bottom: 64px;
+    }
+
+    .sec-head h2 {
+      font-size: clamp(30px, 3.6vw, 48px);
+      max-width: 600px;
+    }
+
+    .sec-head p {
+      color: var(--ink-soft);
+      max-width: 340px;
+      font-size: 15px;
+    }
+
+    @media (max-width:720px) {
+      .sec-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .9s var(--ease), transform .9s var(--ease);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------- PRODUCTS GRID ---------- */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+
+    .p-card {
+      cursor: pointer;
+    }
+
+    .p-card:nth-child(4n+1),
+    .p-card:nth-child(4n+4) {
+      grid-row: span 1;
+    }
+
+    .p-media {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--paper-deep);
+      margin-bottom: 18px;
+    }
+
+    .p-media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity .7s var(--ease), transform .9s var(--ease);
+    }
+
+    .p-media img.alt {
+      opacity: 0;
+    }
+
+    .p-card:hover .p-media img.main {
+      opacity: 0;
+      transform: scale(1.04);
+    }
+
+    .p-card:hover .p-media img.alt {
+      opacity: 1;
+      transform: scale(1.04);
+    }
+
+    .p-media .badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      background: rgba(247, 243, 234, 0.9);
+      padding: 6px 12px;
+      border-radius: 100px;
+      text-transform: uppercase;
+    }
+
+    .p-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .p-info h3 {
+      font-size: 19px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .p-info .p-desc {
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      max-width: 220px;
+    }
+
+    .p-arrow {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background .3s ease, border-color .3s ease, transform .3s var(--ease);
+    }
+
+    .p-card:hover .p-arrow {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: rotate(45deg);
+    }
+
+    .p-arrow svg {
+      width: 15px;
+      height: 15px;
+      stroke: var(--ink);
+      transition: stroke .3s ease;
+    }
+
+    .p-card:hover .p-arrow svg {
+      stroke: var(--paper);
+    }
+
+    @media (max-width:1080px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 22px;
+      }
+    }
+
+    @media (max-width:560px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .p-info .p-desc {
+        max-width: none;
+      }
+    }
+
+    .products-more {
+      text-align: center;
+      margin-top: 56px;
+    }
+
+    /* ---------- INSTAGRAM ---------- */
+    .insta-section {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .insta-section .eyebrow {
+      color: var(--gold);
+    }
+
+    .insta-section .eyebrow::before {
+      background: var(--gold);
+    }
+
+    .insta-section .sec-head h2 {
+      color: var(--paper);
+    }
+
+    .insta-section .sec-head p {
+      color: rgba(247, 243, 234, 0.6);
+    }
+
+    .insta-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+
+    .insta-item {
+      aspect-ratio: 1/1;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .insta-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .7s var(--ease);
+    }
+
+    .insta-item:hover img {
+      transform: scale(1.08);
+    }
+
+    .insta-item .ov {
+      position: absolute;
+      inset: 0;
+      background: rgba(18, 63, 48, 0.0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .35s ease;
+    }
+
+    .insta-item:hover .ov {
+      background: rgba(18, 63, 48, 0.55);
+    }
+
+    .insta-item .ov svg {
+      width: 22px;
+      height: 22px;
+      opacity: 0;
+      transform: scale(0.7);
+      transition: all .35s ease;
+      stroke: var(--paper);
+    }
+
+    .insta-item:hover .ov svg {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .insta-cta {
+      display: flex;
+      justify-content: center;
+    }
+
+    @media (max-width:900px) {
+      .insta-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .insta-item:nth-child(n+7) {
+        display: none;
+      }
+    }
+
+    @media (max-width:560px) {
+      .insta-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .insta-item:nth-child(n+5) {
+        display: none;
+      }
+    }
+
+    /* ---------- ABOUT ---------- */
+    .about {
+      background: var(--paper-alt);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .about-photos {
+      position: relative;
+      height: 560px;
+    }
+
+    .about-photos img {
+      position: absolute;
+      border-radius: var(--radius-md);
+      object-fit: cover;
+      box-shadow: var(--shadow);
+    }
+
+    .ap-1 {
+      width: 70%;
+      height: 78%;
+      top: 0;
+      left: 0;
+    }
+
+    .ap-2 {
+      width: 52%;
+      height: 52%;
+      bottom: 0;
+      right: 0;
+      border: 8px solid var(--paper-alt);
+    }
+
+    .about-copy h2 {
+      font-size: clamp(28px, 3.2vw, 42px);
+      margin-bottom: 22px;
+    }
+
+    .about-copy p {
+      color: var(--ink-soft);
+      font-size: 15.5px;
+      margin-bottom: 18px;
+      max-width: 480px;
+    }
+
+    .about-facts {
+      display: flex;
+      gap: 40px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .fact-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .fact-value {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .about-copy .btn {
+      margin-top: 36px;
+    }
+
+    @media (max-width:900px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 44px;
+      }
+
+      .about-photos {
+        height: 420px;
+        order: 1;
+      }
+
+      .about-copy {
+        order: 2;
+      }
+    }
+
+    /* ---------- FINAL CTA ---------- */
+    .final-cta {
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+      background: var(--accent);
+      color: var(--paper);
+      border-radius: var(--radius-lg);
+      margin: 0 auto;
+      max-width: 1320px;
+      padding: 110px 40px;
+    }
+
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(169, 130, 47, 0.35), transparent 55%), radial-gradient(circle at 85% 80%, rgba(247, 243, 234, 0.12), transparent 50%);
+    }
+
+    .final-cta>* {
+      position: relative;
+      z-index: 1;
+    }
+
+    .final-cta .eyebrow {
+      color: var(--gold);
+      justify-content: center;
+    }
+
+    .final-cta .eyebrow::before {
+      background: var(--gold);
+    }
+
+    .final-cta h2 {
+      color: var(--paper);
+      font-size: clamp(32px, 4.4vw, 56px);
+      margin: 22px auto 18px;
+      max-width: 680px;
+    }
+
+    .final-cta p {
+      color: rgba(247, 243, 234, 0.75);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      font-size: 16px;
+    }
+
+    .final-cta .btn-light {
+      padding: 20px 40px;
+      font-size: 15.5px;
+    }
+
+    .final-wrap {
+      padding: 0 32px;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      padding: 90px 0 40px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 50px;
+      margin-bottom: 70px;
+    }
+
+    .f-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .f-tag {
+      color: var(--ink-soft);
+      font-size: 14px;
+      max-width: 260px;
+    }
+
+    .f-col h4 {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .f-col ul li {
+      margin-bottom: 12px;
+      font-size: 14.5px;
+      color: var(--ink-soft);
+    }
+
+    .f-col ul li a:hover {
+      color: var(--ink);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    @media (max-width:820px) {
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width:520px) {
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- WHATSAPP FLOAT ---------- */
+    .wa-float {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 150;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--paper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 34px -12px rgba(18, 63, 48, 0.6);
+      transition: transform .35s var(--ease), background .3s ease;
+    }
+
+    .wa-float:hover {
+      transform: scale(1.08);
+      background: var(--accent-bright);
+    }
+
+    .wa-float svg {
+      width: 26px;
+      height: 26px;
+      fill: #fff;
+    }
+
+    /* ---------- PRODUCT MODAL ---------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(23, 20, 15, 0.55);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .4s ease;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-panel {
+      background: var(--paper);
+      width: 100%;
+      max-width: 1100px;
+      max-height: 92vh;
+      overflow-y: auto;
+      border-radius: 28px 28px 0 0;
+      transform: translateY(100%);
+      transition: transform .5s var(--ease);
+      position: relative;
+    }
+
+    .modal-overlay.open .modal-panel {
+      transform: translateY(0);
+    }
+
+    @media (min-width:860px) {
+      .modal-overlay {
+        align-items: center;
+        padding: 40px;
+      }
+
+      .modal-panel {
+        border-radius: var(--radius-lg);
+        max-height: 88vh;
+      }
+
+      .modal-overlay.open .modal-panel {
+        transform: translateY(0) scale(1);
+      }
+
+      .modal-panel {
+        transform: translateY(0) scale(0.96);
+        opacity: 0;
+      }
+
+      .modal-overlay.open .modal-panel {
+        opacity: 1;
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 5;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .modal-body {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+    }
+
+    .modal-gallery {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .modal-gallery .main-img {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 4/5;
+    }
+
+    .modal-gallery .main-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-thumbs {
+      display: flex;
+      gap: 10px;
+    }
+
+    .modal-thumbs img {
+      width: 76px;
+      height: 92px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      opacity: 0.55;
+      transition: opacity .3s ease, outline .3s ease;
+    }
+
+    .modal-thumbs img.active {
+      opacity: 1;
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .modal-info {
+      padding: 44px 44px 44px 12px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-info .eyebrow {
+      margin-bottom: 18px;
+    }
+
+    .modal-info h3 {
+      font-size: clamp(26px, 3vw, 36px);
+      margin-bottom: 14px;
+    }
+
+    .modal-info .m-desc {
+      color: var(--ink-soft);
+      font-size: 15px;
+      margin-bottom: 26px;
+    }
+
+    .m-block {
+      margin-bottom: 24px;
+    }
+
+    .m-block-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .swatches {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .swatch {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid var(--paper);
+      box-shadow: 0 0 0 1px var(--line);
+    }
+
+    .sizes {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .size-pill {
+      padding: 8px 16px;
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      font-size: 13px;
+    }
+
+    .modal-ctas {
+      margin-top: auto;
+      padding-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .modal-ctas .btn {
+      width: 100%;
+    }
+
+    @media (max-width:860px) {
+      .modal-body {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-info {
+        padding: 8px 24px 32px;
+      }
+    }
+
+    /* fade-in utility for hero */
+    .hero-copy>* {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: rise .9s var(--ease) forwards;
+    }
+
+    .hero-copy .eyebrow {
+      animation-delay: .15s;
+    }
+
+    .hero-copy h1 {
+      animation-delay: .3s;
+    }
+
+    .hero-copy p {
+      animation-delay: .45s;
+    }
+
+    .hero-copy .hero-ctas {
+      animation-delay: .6s;
+    }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header id="siteHeader">
+    <div class="wrap nav-inner">
+      <a href="#top" class="logo">ALMA</a>
+      <nav class="navlinks" id="navLinks">
+        <a href="#top" class="nav-link">Início</a>
+        <a href="#produtos" class="nav-link">Produtos</a>
+        <a href="#sobre" class="nav-link">Sobre</a>
+        <a href="#instagram" class="nav-link">Instagram</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="https://wa.me/5585999999999?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20a%20ALMA."
+          target="_blank" rel="noopener" class="btn btn-primary">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.6 0-3.1-.43-4.4-1.17l-.31-.18-3 .79.8-2.92-.2-.3A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.8c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.57.2-1.05.14-1.15-.06-.1-.22-.16-.46-.28z"></path>
+          </svg>
+          Falar no WhatsApp
+        </a>
+        <button class="burger" id="burger" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Coleção Contínua</span>
+        <h1>Peças que contam <em>quem você é.</em></h1>
+        <p>Uma seleção autoral de moda contemporânea, escolhida peça a peça — para quem valoriza forma, tecido e
+          atitude.</p>
+        <div class="hero-ctas">
+          <a href="#produtos" class="btn btn-primary">Conheça nossa coleção</a>
+          <a href="https://wa.me/5585999999999?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20falar%20com%20voc%C3%AAs."
+            target="_blank" rel="noopener" class="btn btn-ghost">Falar no WhatsApp</a>
+        </div>
+      </div>
+      <div class="hero-media">
+        <img src="https://picsum.photos/seed/alma-hero/1100/1500" alt="Modelo vestindo peça da coleção ALMA">
+        <span class="tag">Coleção Atual — Edição 04</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>ALMA</span><span>Edição Limitada</span><span>Peças Selecionadas</span><span>Feito Para Durar</span>
+      <span>ALMA</span><span>Edição Limitada</span><span>Peças Selecionadas</span><span>Feito Para Durar</span>
+    </div>
+  </div>
+
+  <!-- ===================== PRODUTOS ===================== -->
+  <section id="produtos">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Uma seleção enxuta, escolhida com <em>critério.</em></h2>
+        <p>Cada peça é escolhida a dedo. Poucas unidades, alta rotatividade — fale conosco para confirmar
+          disponibilidade.</p>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+      <div class="products-more reveal">
+        <a href="https://wa.google.com" id="verMaisWpp" target="_blank" rel="noopener" class="btn btn-ghost">Ver coleção
+          completa no WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INSTAGRAM ===================== -->
+  <section class="insta-section" id="instagram">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div>
+          <span class="eyebrow">@alma.loja</span>
+          <h2 style="margin-top:22px;">O dia a dia da loja, <em>em imagens.</em></h2>
+        </div>
+        <p>Bastidores, novidades e combinações — tudo por lá, antes de chegar aqui.</p>
+      </div>
+      <div class="insta-grid reveal" id="instaGrid"></div>
+      <div class="insta-cta">
+        <a href="https://instagram.com/alma.loja" target="_blank" rel="noopener" class="btn btn-light">Siga-nos no
+          Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SOBRE ===================== -->
+  <section class="about" id="sobre">
+    <div class="wrap about-grid">
+      <div class="about-photos reveal">
+        <img class="ap-1" src="https://picsum.photos/seed/alma-loja1/700/900" alt="Interior da loja ALMA">
+        <img class="ap-2" src="https://picsum.photos/seed/alma-loja2/500/500" alt="Detalhe do ambiente da loja ALMA">
+      </div>
+      <div class="about-copy reveal">
+        <span class="eyebrow">Sobre a ALMA</span>
+        <h2 style="margin-top:22px;">Uma loja pensada para durar — <em>como as roupas que vendemos.</em></h2>
+        <p>A ALMA nasceu da vontade de reunir, num único espaço, peças com identidade: cortes bem resolvidos, tecidos
+          nobres e um olhar autoral sobre moda contemporânea.</p>
+        <p>Cada coleção é montada a partir de garimpo — não seguimos tendência por tendência, escolhemos o que faz
+          sentido para quem se veste com intenção.</p>
+        <div class="about-facts">
+          <div>
+            <div class="fact-label">Endereço</div>
+            <div class="fact-value">Rua das Flores, 482 — Centro<br>Várzea Alegre, CE</div>
+          </div>
+          <div>
+            <div class="fact-label">Horário</div>
+            <div class="fact-value">Seg. a Sáb.<br>9h às 19h</div>
+          </div>
+        </div>
+        <a href="https://www.google.com/maps/search/?api=1&query=Rua+das+Flores+482+Centro+Varzea+Alegre+CE"
+          target="_blank" rel="noopener" class="btn btn-ghost">Ver no mapa</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA FINAL ===================== -->
+  <section>
+    <div class="final-wrap">
+      <div class="final-cta reveal">
+        <span class="eyebrow">Fale com a gente</span>
+        <h2>Encontrou algo que <em>gostou?</em></h2>
+        <p>Fale conosco pelo WhatsApp e consulte disponibilidade, cores e tamanhos em tempo real.</p>
+        <a href="https://wa.me/5585999999999?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20encontrei%20uma%20pe%C3%A7a%20que%20gostei."
+          target="_blank" rel="noopener" class="btn btn-light">
+          Falar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <div class="f-logo">ALMA</div>
+          <p class="f-tag">Moda contemporânea, escolhida peça a peça. Loja física em Várzea Alegre, CE.</p>
+        </div>
+        <div class="f-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="#top">Início</a></li>
+            <li><a href="#produtos">Produtos</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#instagram">Instagram</a></li>
+          </ul>
+        </div>
+        <div class="f-col">
+          <h4>Contato</h4>
+          <ul>
+            <li><a href="https://wa.me/5585999999999" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="https://instagram.com/alma.loja" target="_blank" rel="noopener">Instagram</a></li>
+            <li>Rua das Flores, 482 — Centro</li>
+            <li>Várzea Alegre, CE</li>
+          </ul>
+        </div>
+        <div class="f-col">
+          <h4>Horário</h4>
+          <ul>
+            <li>Segunda a Sábado</li>
+            <li>9h às 19h</li>
+            <li>Domingo — Fechado</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 ALMA. Todos os direitos reservados.</span>
+        <span>Loja física — atendimento também pelo WhatsApp e Instagram.</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float"
+    href="https://wa.me/5585999999999?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20falar%20com%20voc%C3%AAs."
+    target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.6 0-3.1-.43-4.4-1.17l-.31-.18-3 .79.8-2.92-.2-.3A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.8c-.24-.12-1.43-.7-1.65-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.41h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.43-.58 1.63-1.15.2-.57.2-1.05.14-1.15-.06-.1-.22-.16-.46-.28z"></path>
+    </svg>
+  </a>
+
+  <!-- ===================== MODAL PRODUTO ===================== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-panel" id="modalPanel">
+      <button class="modal-close" id="modalClose" aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+      <div class="modal-body">
+        <div class="modal-gallery">
+          <div class="main-img"><img id="modalMainImg" src="" alt=""></div>
+          <div class="modal-thumbs" id="modalThumbs"></div>
+        </div>
+        <div class="modal-info">
+          <span class="eyebrow" id="modalEyebrow">Look</span>
+          <h3 id="modalName"></h3>
+          <p class="m-desc" id="modalDesc"></p>
+          <div class="m-block">
+            <div class="m-block-label">Cores disponíveis</div>
+            <div class="swatches" id="modalColors"></div>
+          </div>
+          <div class="m-block">
+            <div class="m-block-label">Tamanhos</div>
+            <div class="sizes" id="modalSizes"></div>
+          </div>
+          <div class="modal-ctas">
+            <a href="#" id="modalInteresse" target="_blank" rel="noopener" class="btn btn-primary">Tenho interesse neste
+              produto</a>
+            <a href="#" id="modalWpp" target="_blank" rel="noopener" class="btn btn-ghost">Consultar pelo WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const WHATSAPP_NUMBER = "5585999999999"; // TODO: substituir pelo número real da loja
+
+      const products = [
+        { id: 1, name: "Casaco Bruma", category: "Alfaiataria", seed: "alma-p1", desc: "Casaco em lã leve, modelagem reta e caimento fluido. Peça-chave para transições de estação.", colors: ["#4A453C", "#C9BEB0", "#123F30"], sizes: ["P", "M", "G"] },
+        { id: 2, name: "Vestido Aurora", category: "Vestidos", seed: "alma-p2", desc: "Vestido midi em tecido fluido, decote em V e fenda discreta. Elegância sem esforço.", colors: ["#A9822F", "#17140F", "#E4D9C4"], sizes: ["PP", "P", "M", "G"] },
+        { id: 3, name: "Calça Riacho", category: "Calças", seed: "alma-p3", desc: "Calça alfaiataria de cintura alta, tecido com leve elasticidade e caimento reto.", colors: ["#17140F", "#4A453C"], sizes: ["36", "38", "40", "42"] },
+        { id: 4, name: "Camisa Argila", category: "Camisas", seed: "alma-p4", desc: "Camisa em algodão encorpado, botões em madrepérola e corte levemente oversized.", colors: ["#C97B5A", "#F7F3EA", "#17140F"], sizes: ["P", "M", "G", "GG"] },
+        { id: 5, name: "Blazer Âmbar", category: "Alfaiataria", seed: "alma-p5", desc: "Blazer estruturado de ombro levemente marcado, forro em cetim e botão duplo.", colors: ["#123F30", "#17140F"], sizes: ["P", "M", "G"] },
+        { id: 6, name: "Saia Vento", category: "Saias", seed: "alma-p6", desc: "Saia midi plissada, tecido leve com caimento em movimento. Cintura com elástico interno.", colors: ["#E4D9C4", "#A9822F"], sizes: ["PP", "P", "M"] },
+        { id: 7, name: "Conjunto Maré", category: "Conjuntos", seed: "alma-p7", desc: "Conjunto de tricô em duas peças, textura canelada e caimento justo ao corpo.", colors: ["#4A453C", "#C9BEB0"], sizes: ["P", "M", "G"] },
+        { id: 8, name: "Colar Lua", category: "Acessórios", seed: "alma-p8", desc: "Colar em metal banhado, pingente minimalista. Acabamento artesanal.", colors: ["#A9822F", "#17140F"], sizes: ["Único"] },
+      ];
+
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = products.map((p, i) => `
+    <div class="p-card reveal" data-id="${p.id}">
+      <div class="p-media">
+        <span class="badge">Look ${String(i + 1).padStart(2, '0')}</span>
+        <img class="main" src="https://picsum.photos/seed/${p.seed}-a/700/930" alt="${p.name}">
+        <img class="alt" src="https://picsum.photos/seed/${p.seed}-b/700/930" alt="${p.name} - foto alternativa">
+      </div>
+      <div class="p-info">
+        <div>
+          <h3>${p.name}</h3>
+          <p class="p-desc">${p.category} — ${p.desc.split('.')[0]}.</p>
+        </div>
+        <div class="p-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+      // Instagram fake feed
+      const instaGrid = document.getElementById('instaGrid');
+      const instaSeeds = ["alma-ig1", "alma-ig2", "alma-ig3", "alma-ig4", "alma-ig5", "alma-ig6", "alma-ig7", "alma-ig8", "alma-ig9", "alma-ig10"];
+      instaGrid.innerHTML = instaSeeds.map(s => `
+    <a class="insta-item" href="https://instagram.com/alma.loja" target="_blank" rel="noopener">
+      <img src="https://picsum.photos/seed/${s}/500/500" alt="Publicação do Instagram da ALMA" loading="lazy">
+      <div class="ov"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></div>
+    </a>
+  `).join('');
+
+      // ---- Modal logic ----
+      const overlay = document.getElementById('modalOverlay');
+      const modalMainImg = document.getElementById('modalMainImg');
+      const modalThumbs = document.getElementById('modalThumbs');
+      const modalEyebrow = document.getElementById('modalEyebrow');
+      const modalName = document.getElementById('modalName');
+      const modalDesc = document.getElementById('modalDesc');
+      const modalColors = document.getElementById('modalColors');
+      const modalSizes = document.getElementById('modalSizes');
+      const modalInteresse = document.getElementById('modalInteresse');
+      const modalWpp = document.getElementById('modalWpp');
+
+      function openProduct(p, index) {
+        modalEyebrow.textContent = `Look ${String(index + 1).padStart(2, '0')} — ${p.category}`;
+        modalName.textContent = p.name;
+        modalDesc.textContent = p.desc;
+        modalColors.innerHTML = p.colors.map(c => `<span class="swatch" style="background:${c}"></span>`).join('');
+        modalSizes.innerHTML = p.sizes.map(s => `<span class="size-pill">${s}</span>`).join('');
+
+        const imgs = [
+          `https://picsum.photos/seed/${p.seed}-a/900/1150`,
+          `https://picsum.photos/seed/${p.seed}-b/900/1150`,
+          `https://picsum.photos/seed/${p.seed}-c/900/1150`,
+          `https://picsum.photos/seed/${p.seed}-d/900/1150`
+        ];
+        modalMainImg.src = imgs[0];
+        modalMainImg.alt = p.name;
+        modalThumbs.innerHTML = imgs.map((src, i) => `<img src="${src}" data-src="${src}" class="${i === 0 ? 'active' : ''}" alt="${p.name} foto ${i + 1}">`).join('');
+
+        const msg = encodeURIComponent(`Olá! Tenho interesse na peça "${p.name}" que vi no site da ALMA. Poderiam me passar mais informações?`);
+        const link = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+        modalInteresse.href = link;
+        modalWpp.href = link;
+
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      modalThumbs && modalThumbs.addEventListener('click', (e) => {
+        const t = e.target.closest('img');
+        if (!t) return;
+        modalMainImg.src = t.dataset.src;
+        modalThumbs.querySelectorAll('img').forEach(i => i.classList.remove('active'));
+        t.classList.add('active');
+      });
+
+      grid.addEventListener('click', (e) => {
+        const card = e.target.closest('.p-card');
+        if (!card) return;
+        const id = Number(card.dataset.id);
+        const idx = products.findIndex(p => p.id === id);
+        openProduct(products[idx], idx);
+      });
+
+      function closeModal() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      document.getElementById('modalClose').addEventListener('click', closeModal);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+      // "Ver coleção completa" -> whatsapp
+      document.getElementById('verMaisWpp').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Olá! Gostaria de conhecer a coleção completa da ALMA.')}`;
+
+      // ---- Header scroll state ----
+      const header = document.getElementById('siteHeader');
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 40);
+      }, { passive: true });
+
+      // ---- Mobile menu ----
+      const burger = document.getElementById('burger');
+      const navLinks = document.getElementById('navLinks');
+      burger.addEventListener('click', () => {
+        burger.classList.toggle('open');
+        navLinks.classList.toggle('open');
+      });
+      navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        burger.classList.remove('open');
+        navLinks.classList.remove('open');
+      }));
+
+      // ---- Reveal on scroll ----
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+      // re-observe dynamically injected cards
+      document.querySelectorAll('.p-card, .insta-item').forEach(el => {
+        el.classList.add('reveal');
+        io.observe(el);
+      });
+
+      // ---- Hero load state ----
+      window.addEventListener('load', () => {
+        document.querySelector('.hero').classList.add('loaded');
+      });
+    })();
+  </script>
+</body>
+
+</html>
